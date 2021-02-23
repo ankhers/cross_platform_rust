@@ -1,0 +1,11 @@
+namespace todo {};
+
+[Error]
+enum Error {
+  "SqlError"
+};
+
+interface Todo {
+  [Throws=Error]
+  constructor(string path);
+};

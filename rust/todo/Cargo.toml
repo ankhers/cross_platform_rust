@@ -1,0 +1,24 @@
+[package]
+name = "todo"
+version = "0.1.0"
+authors = ["Justin Wood <me@ankhers.dev>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+rusqlite = { version = "0.24", features = [ "bundled" ] }
+log = "0.4"
+thiserror = "1.0"
+uniffi = "0.7"
+
+[target.'cfg(target_os="android")'.dependencies]
+android_logger = "0.9"
+
+[target.'cfg(not(target_os="android"))'.dependencies]
+simple_logger = "1.11"
+
+[build-dependencies]
+uniffi_build = "0.7"
