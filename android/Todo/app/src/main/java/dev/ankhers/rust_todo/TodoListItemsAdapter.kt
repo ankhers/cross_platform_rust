@@ -25,10 +25,10 @@ class TodoListItemsAdapter(private val activity: Activity, private var items: Li
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view = convertView ?: inflater.inflate(R.layout.todo_list_item, null)
+        val view = convertView ?: inflater.inflate(R.layout.todo_list_item_item, null)
 
         val todoListItem = getItem(position)
-        val name = view.findViewById<CheckedTextView>(R.id.todo_list_item_name)
+        val name = view.findViewById<CheckedTextView>(R.id.item_name)
 
         name.text = todoListItem.name
         name.isChecked = todoListItem.complete
@@ -36,4 +36,7 @@ class TodoListItemsAdapter(private val activity: Activity, private var items: Li
         return view
     }
 
+    fun setItems(newItems: List<TodoListItem>) {
+        items  = newItems
+    }
 }

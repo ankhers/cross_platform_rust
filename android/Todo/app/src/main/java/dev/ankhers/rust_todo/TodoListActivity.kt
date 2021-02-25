@@ -1,13 +1,13 @@
 package dev.ankhers.rust_todo
 
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ListView
-import android.widget.TextView
-import android.widget.Toast
+import android.text.InputType
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ankhers.todo.Todo
+import dev.ankhers.todo.TodoListItem
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -30,9 +30,37 @@ class TodoListActivity : AppCompatActivity() {
         val listView = findViewById<ListView>(R.id.todo_list_items_list)
         listView.adapter = adapter
 
+        listView.setOnItemClickListener { parent, view, position, id ->
+            val item = adapter.getItem(position)
+
+            todo.listItemSetComplete(item.id, !item.complete)
+            adapter.setItems(todo.getListItems(id))
+            adapter.notifyDataSetChanged()
+        }
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("New List Item")
+
+        val input = EditText(this)
+
+        input.setInputType(InputType.TYPE_CLASS_TEXT)
+        builder.setView(input)
+
+        builder.setPositiveButton(
+            "Create"
+        ) { dialog, which ->
+            todo.createListItem(input.text.toString(), id)
+            adapter.setItems(todo.getListItems(id))
+            adapter.notifyDataSetChanged()
+        }
+
+        builder.setNegativeButton(
+            "Cancel"
+        ) { dialog, which -> dialog.cancel() }
+
         val add = findViewById<Button>(R.id.add_list_item)
         add.setOnClickListener {
-            Toast.makeText(applicationContext, "Need to add list item", Toast.LENGTH_LONG).show()
+            builder.show()
         }
     }
 }

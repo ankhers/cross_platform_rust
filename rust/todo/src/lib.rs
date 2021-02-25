@@ -31,8 +31,16 @@ impl Todo {
         self.store.get_list(id)
     }
 
+    pub fn create_list_item(&self, name: String, list_id: i64) -> Result<(), Error> {
+        self.store.create_list_item(name, list_id)
+    }
+
     pub fn get_list_items(&self, id: i64) -> Result<Vec<TodoListItem>, Error> {
         self.store.get_list_items(id)
+    }
+
+    pub fn list_item_set_complete(&self, id: i64, complete: bool) -> Result<(), Error> {
+        self.store.list_item_set_complete(id, complete)
     }
 }
 

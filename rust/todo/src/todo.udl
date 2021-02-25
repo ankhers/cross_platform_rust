@@ -32,5 +32,11 @@ interface Todo {
   TodoList get_list(i64 id);
 
   [Throws=Error]
+  void create_list_item(string name, i64 list_id);
+
+  [Throws=Error]
   sequence<TodoListItem> get_list_items(i64 id);
+
+  [Throws=Error]
+  void list_item_set_complete(i64 id, boolean complete);
 };

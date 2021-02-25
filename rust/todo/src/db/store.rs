@@ -28,7 +28,13 @@ impl Store {
         list::get(&self.db.lock().unwrap().conn, id)
     }
 
+    pub fn create_list_item(&self, name: String, list_id: i64) -> Result<()> {
+        list_item::create(&self.db.lock().unwrap().conn, name, list_id)
+    }
     pub fn get_list_items(&self, id: i64) -> Result<Vec<TodoListItem>> {
         list_item::get_all_for_list(&self.db.lock().unwrap().conn, id)
+    }
+    pub fn list_item_set_complete(&self, id: i64, complete: bool) -> Result<()> {
+        list_item::set_complete(&self.db.lock().unwrap().conn, id, complete)
     }
 }
