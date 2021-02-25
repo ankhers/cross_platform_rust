@@ -6,6 +6,7 @@ edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [lib]
+name = "uniffi_todo"
 crate-type = ["cdylib"]
 
 [dependencies]
@@ -13,6 +14,7 @@ rusqlite = { version = "0.24", features = [ "bundled" ] }
 log = "0.4"
 thiserror = "1.0"
 uniffi = "0.7"
+refinery = { git = "https://github.com/ankhers/refinery", branch = "allow_64bit_migration_versions", features = [ "rusqlite" ] }
 
 [target.'cfg(target_os="android")'.dependencies]
 android_logger = "0.9"

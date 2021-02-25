@@ -2,10 +2,35 @@ namespace todo {};
 
 [Error]
 enum Error {
-  "SqlError"
+  "SqlError",
+  "RefineryError"
+};
+
+dictionary TodoList {
+    i64 id;
+    string name;
+};
+
+dictionary TodoListItem {
+    i64 id;
+    string name;
+    boolean complete;
+    i64 todo_list_id;
 };
 
 interface Todo {
   [Throws=Error]
   constructor(string path);
+
+  [Throws=Error]
+  void create_list(string list_name);
+
+  [Throws=Error]
+  sequence<TodoList> get_all_lists();
+
+  [Throws=Error]
+  TodoList get_list(i64 id);
+
+  [Throws=Error]
+  sequence<TodoListItem> get_list_items(i64 id);
 };

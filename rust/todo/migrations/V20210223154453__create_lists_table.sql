@@ -1,0 +1,4 @@
+CREATE TABLE todo_lists (
+       id INTEGER NOT NULL PRIMARY KEY,
+       name TEXT NOT NULL UNIQUE
+);

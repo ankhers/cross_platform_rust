@@ -39,7 +39,7 @@ android {
 }
 
 cargo {
-    module = "../../../rust/todo"
+    module = "../../../rust/"
     libname = "uniffi_todo"
     targets = ["arm", "arm64", "x86", "x86_64", "linux-x86-64"]
     // profile = 'release'

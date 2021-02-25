@@ -3,6 +3,8 @@ use std::path::Path;
 pub mod db;
 pub mod error;
 
+use crate::db::models::list::TodoList;
+use crate::db::models::list_item::TodoListItem;
 use crate::db::store::Store;
 use crate::error::Error;
 
@@ -15,6 +17,22 @@ impl Todo {
         Ok(Todo {
             store: Store::new(db_path)?,
         })
+    }
+
+    pub fn create_list(&self, list_name: String) -> Result<(), Error> {
+        self.store.create_list(list_name)
+    }
+
+    pub fn get_all_lists(&self) -> Result<Vec<TodoList>, Error> {
+        self.store.get_lists()
+    }
+
+    pub fn get_list(&self, id: i64) -> Result<TodoList, Error> {
+        self.store.get_list(id)
+    }
+
+    pub fn get_list_items(&self, id: i64) -> Result<Vec<TodoListItem>, Error> {
+        self.store.get_list_items(id)
     }
 }
 
