@@ -18,7 +18,7 @@ dictionary TodoListItem {
     i64 todo_list_id;
 };
 
-interface Todo {
+interface Store {
   [Throws=Error]
   constructor(string path);
 

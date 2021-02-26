@@ -6,13 +6,12 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
-import dev.ankhers.todo.Todo
-import dev.ankhers.todo.TodoListItem
+import dev.ankhers.todo.Store
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class TodoListActivity : AppCompatActivity() {
-    @Inject lateinit var todo: Todo
+    @Inject lateinit var store: Store
     lateinit var adapter: TodoListItemsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,12 +19,12 @@ class TodoListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_todo_list)
 
         val id = intent.extras!!.getLong("id")
-        val todoList = todo.getList(id)
+        val todoList = store.getList(id)
 
         val name = findViewById<TextView>(R.id.todo_list_name)
         name.text = todoList.name
 
-        adapter = TodoListItemsAdapter(this, todo.getListItems(id))
+        adapter = TodoListItemsAdapter(this, store.getListItems(id))
 
         val listView = findViewById<ListView>(R.id.todo_list_items_list)
         listView.adapter = adapter
@@ -33,8 +32,8 @@ class TodoListActivity : AppCompatActivity() {
         listView.setOnItemClickListener { parent, view, position, id ->
             val item = adapter.getItem(position)
 
-            todo.listItemSetComplete(item.id, !item.complete)
-            adapter.setItems(todo.getListItems(id))
+            store.listItemSetComplete(item.id, !item.complete)
+            adapter.setItems(store.getListItems(id))
             adapter.notifyDataSetChanged()
         }
 
@@ -49,8 +48,8 @@ class TodoListActivity : AppCompatActivity() {
         builder.setPositiveButton(
             "Create"
         ) { dialog, which ->
-            todo.createListItem(input.text.toString(), id)
-            adapter.setItems(todo.getListItems(id))
+            store.createListItem(input.text.toString(), id)
+            adapter.setItems(store.getListItems(id))
             adapter.notifyDataSetChanged()
         }
 

@@ -21,7 +21,7 @@ impl Store {
         list::create(&self.db.lock().unwrap().conn, list_name)
     }
 
-    pub fn get_lists(&self) -> Result<Vec<TodoList>> {
+    pub fn get_all_lists(&self) -> Result<Vec<TodoList>> {
         list::get_all(&self.db.lock().unwrap().conn)
     }
     pub fn get_list(&self, id: i64) -> Result<TodoList> {

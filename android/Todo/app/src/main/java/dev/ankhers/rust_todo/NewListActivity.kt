@@ -7,12 +7,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ankhers.todo.ErrorException
-import dev.ankhers.todo.Todo
+import dev.ankhers.todo.Store
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class NewListActivity : AppCompatActivity() {
-    @Inject lateinit var todo: Todo
+    @Inject lateinit var store: Store
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +23,7 @@ class NewListActivity : AppCompatActivity() {
 
         save.setOnClickListener {
             try {
-                todo.createList(input.text.toString())
+                store.createList(input.text.toString())
 
                 Toast.makeText(applicationContext, "New List Created!", Toast.LENGTH_LONG).show()
                 finish()
