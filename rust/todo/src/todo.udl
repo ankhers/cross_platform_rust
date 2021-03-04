@@ -1,4 +1,6 @@
-namespace todo {};
+namespace todo {
+    void setup();
+};
 
 [Error]
 enum Error {
